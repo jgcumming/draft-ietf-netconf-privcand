@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <!-- 
      draft-rfcxml-general-template-standard-01
   
@@ -14,14 +14,22 @@
 <!-- <?xml-stylesheet type="text/xsl" href="rfc2629.xslt" ?> -->
 <!-- This third-party XSLT can be enabled for direct transformations in XML processors, including most browsers -->
 <!DOCTYPE rfc [
-<!ENTITY nbsp "&#160;">
-<!ENTITY zwsp "&#8203;">
-<!ENTITY nbhy "&#8209;">
-<!ENTITY wj "&#8288;">
+  <!ENTITY nbsp    "&#160;">
+  <!ENTITY zwsp   "&#8203;">
+  <!ENTITY nbhy   "&#8209;">
+  <!ENTITY wj     "&#8288;">
 ]>
 <!-- If further character entities are required then they should be added to the DOCTYPE above.
      Use of an external entity file is not recommended. -->
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="std" docName="draft-ietf-netconf-privcand-00" ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="3">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" 
+      category="std" 
+      docName="draft-ietf-netconf-privcand-00" 
+      ipr="trust200902" 
+      obsoletes="" 
+      updates="" 
+      submissionType="IETF" 
+      xml:lang="en" 
+      version="3">
   <front>
     <title abbrev="NETCONF Private Candidates">NETCONF Private Candidates</title>
     <seriesInfo name="Internet-Draft" value="draft-ietf-netconf-privcand-00"/>
