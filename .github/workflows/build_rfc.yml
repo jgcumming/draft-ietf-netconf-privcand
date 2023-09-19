@@ -27,7 +27,15 @@ jobs:
     - name: Compile draft or RFC
       run: |
         for file in draft-*.xml; do
-            xml2rfc --text --html $file
+            xml2rfc --text --html -b build $file
         done
+    - name: Store artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: draft-ietf-netconf-privcand
+        path: |
+          build/*.txt
+          build/*.html
+
         
 
