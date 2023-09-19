@@ -26,7 +26,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Compile draft or RFC
       run: |
-        for file in $(PWD)/draft-*.xml; do
+        for file in draft-*.xml; do
             xml2rfc --text --html $file
         done
         
