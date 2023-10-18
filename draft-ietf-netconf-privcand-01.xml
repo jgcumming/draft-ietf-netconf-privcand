@@ -23,7 +23,7 @@
      Use of an external entity file is not recommended. -->
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude" 
       category="std" 
-      docName="draft-ietf-netconf-privcand-00" 
+      docName="draft-ietf-netconf-privcand-01" 
       ipr="trust200902" 
       obsoletes="" 
       updates="" 
