@@ -276,11 +276,16 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           </sourcecode>
           <t>A server may also advertise the :candidate capability as defined in
           <xref target="RFC6241"/> if the shared candidate is also supported.</t>
-          <t>If the server has not signalled the :private-candidate capability
-          the session MUST be terminated when a client attempts to interact with
-          the private canididate, for example, by providing the client private
-          candidate capability in the client hello message (see below) or by 
-          explicitly targeting the private-candidate NMDA datastore.</t>
+          <t>A non-NMDA capable NETCONF server that advertises the :private-candidate
+          capability MUST also advertise the :candidate capability.</t>
+          <t>If the server has not signalled the :private-candidate capability, 
+          or otherwise does not support private candidates, the server MUST:</t>
+          <ul>
+          <li>Terminate the session when it receives the :private-candidate
+          capability from a client in a &lt;hello&gt; message,</li>
+          <li>Return an &lt;rpc-error&gt; if a client attempts to interact with the 
+          NMDA private-candidate configuration datastore.</li>
+          </ul>
         </section>
         <section>
           <name>NETCONF client</name>
@@ -297,9 +302,9 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             <sourcecode>
 urn:ietf:params:netconf:capability:private-candidate:1.0
             </sourcecode>
-            <t>In order for the use of private candidates to be established both the
-            NETCONF server and the NETCONF client MUST advertise this capability.
-          </t>
+            <t>In order for the use of private candidates to be established using this
+            approach both the NETCONF server and the NETCONF client MUST advertise 
+            this capability.</t>
             <t>When a server receives the client capability its mode of operation
              will be set to private candidate mode for the duration of the NETCONF
              session.</t>
@@ -308,13 +313,11 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             shared candidate configuration datastore, however, when the server
             receives a request to act upon the candidate configuration datastore it
             instead uses the session's private candidate configuration datastore.</t>
-            <t>Using this method, the use of private candidates can be made available to NMDA
-          and non-NMDA capable servers.</t>
+            <t>Using this method, the use of private candidates can be made available 
+            to NMDA and non-NMDA capable servers.</t>
             <t>No protocol extensions are required for the transitioning of candidates between
             the shared mode and the private mode and no extensions are required for any
             RPCs (including &lt;lock&gt;)</t>
-            <t>The use of the :private-candidate capability will supercede the :candidate
-            capability.</t>
           </section>
           <section>
             <name>Private candidate datastore</name>
@@ -407,7 +410,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           <ul>
             <li>The client requests that the private candidate be refreshed using a
               new &lt;update&gt; operation</li>
-            <li>&lt;commit&gt; is issued (which SHOULD automatically issue an &lt;update&gt;
+            <li>&lt;commit&gt; is issued (which MUST automatically issue an &lt;update&gt;
             operation immediately prior to commiting the configuration)</li>
           </ul>
           <t>This approach is similar to the standard approach for source code management
@@ -881,7 +884,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             <t>The actual order of operations in the server MUST be to issue the implicit
             &lt;update&gt; operation first and then the &lt;commit&gt; operation.</t>
             <t>A &lt;commit&gt; operation that fails the implicit &lt;update&gt; operation
-            MUST fail.  The client is then required to make a specific decision to rectify
+            SHOULD fail.  The client is then required to make a specific decision to rectify
             the issue prior to committing.  This may be to edit the private candidate 
             configuration or to issue a manual &lt;update&gt; operation with a specific
             resolution mode selected.</t>
@@ -920,23 +923,16 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           </section>
           <section>
             <name>&lt;lock&gt; and &lt;unlock&gt;</name>
-            <t>Performing a &lt;lock&gt; on the private-candidate datastore is a valid operation and
-                implementations may decide that this action will also lock the running configuration
-                but this behaviour is out of the scope of this document.</t>
-            <t>Taking a lock on this datastore will stop other session from committing any
-              configuration changes, regardless of the datastore.</t>
+            <t>Performing a &lt;lock&gt; on the private-candidate datastore is a valid operation, although
+            it is understood that the practical effect of this is a 'no op' as only one session may edit
+            the locked private candidate.</t>
+            <t>If the client's intention is that no other session may commit changes to the system then
+            the client should issue a &lt;lock&gt; operation on the running candidate.</t>
             <t>Other NETCONF sessions are still able to create a new private-candidate
                 configurations, make edits to them and perform operations on them, such as 
                 &lt;update&gt; or &lt;discard-changes&gt;.</t>
-            <t>Performing an &lt;unlock&gt; on the private-candidate datastore is a valid operation and
-              implementations may decide that this action will also unlock the running configuration
-              but this behaviour is out of the scope of this document. Unlocking the private-candidate
-                datastore allows other sessions to resume &lt;commit&gt; functions. </t>
-            <t>Changes in the private-candidate datastore are not lost when the
-              lock is released.</t>
-            <t>Attempting to perform a &lt;lock&gt; or &lt;unlock&gt; on any other datastore while the
-              private-candidate datastore is locked will fail.  Attempting to perform a &lt;lock&gt;
-              or &lt;unlock&gt; on any other sessions private-candidate datastore will also fail.</t>
+            <t>Performing an &lt;unlock&gt; on the private-candidate datastore is a valid operation</t>
+            <t>Changes in the private-candidate datastore are not lost when the lock is released.</t>
           </section>
           <section>
             <name>&lt;compare&gt;</name>
