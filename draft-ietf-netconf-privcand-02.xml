@@ -407,13 +407,15 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
         operation</li>
         <li>&lt;commit&gt; is issued (which MUST automatically issue an &lt;update&gt; operation 
         immediately prior to committing the configuration)</li>
+        <li>An implmentation chooses to perform an &lt;update&gt; operation after a change to
+        the running configuration by any other client</li>
         </ul>
         <t>It is possible for a private candidate configuration to become significantly out of 
         sync with the running configuration should the private candidate be open for a long time,
         however, most NETCONF configuration activities (between the first 
         &lt;edit-config&gt;/&lt;edit-data&gt; and a &lt;commit&gt;) are short-lived.</t>
-        <t>An implementation may choose, optionally, to automatically issue an &lt;update&gt; 
-        operation after each configuration change in the running configuration although this
+        <t>An implementation may choose, optionally, to automatically perform an &lt;update&gt; 
+        operation after a change to the running configuration from another client.  However, this
         choice should be made with caution as it will replace, overwrite, or otherwise alter 
         (depending on the servers default resolution mode, discussed later) the private candidate
         configuration without notifying the client</t>
@@ -492,10 +494,9 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           <t>When a conflict is detected in any client triggered activity, the client 
           MUST be informed.  The client then has a number of options available to 
           resolve the conflict.</t>
-          <t>The resolution method MUST be provided as an input to the &lt;update&gt;
-          operation described later in this document.  This input may be through
-          a system-wide default configuration or a specific leaf in the &lt;update&gt; 
-          operation.</t>
+          <t>An &lt;update&gt; operation uses the resolution method specified in the
+          request, or the system default resolution mode if not specified.  The &lt;update&gt;
+          operation is discussed later in this document.</t>
           <t>The following configuration data is used below to illustrate the behaviour
           of each resolution method:</t>
           <sourcecode type="xml">
