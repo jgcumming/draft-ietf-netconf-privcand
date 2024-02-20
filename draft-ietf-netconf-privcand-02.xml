@@ -463,8 +463,8 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           <ul>
             <li>Manually triggered by the &lt;update&gt; NETCONF operation</li>
             <li>Automatically triggered by the NETCONF server running an &lt;update&gt;
-              operation, such as when a &lt;commit&gt; being issued by the client in the
-              private candidate session.</li>
+              operation, such as when a &lt;commit&gt; operation is performed by the 
+              client in the private candidate session.</li>
           </ul>
           <t>When a conflict occurs:</t>
           <ul>
