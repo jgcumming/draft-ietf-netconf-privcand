@@ -128,8 +128,9 @@
           candidate configuration is the only session (user) that has access
           to it over NETCONF.  Devices may expose this to other users through
           other interfaces but this is out of scope for this document.</t>
-	<t>When a private candidate is used by RESTCONF, it exists only for the
-	  duration of the RESTCONF request.</t>
+	    <t>When a private candidate is used by RESTCONF, the client that created
+          the private candidate configuration is the only client that has access
+          to it over RESTCONF.</t>
         <t>The private candidate configuration contains a full copy of the running
           configuration when it is created (in the same way as a branch does in
           a source control management system and in the same way as the candidate
@@ -137,7 +138,7 @@
           Any changes made to it, for example, through the use of operations such
           as &lt;edit-config&gt; and &lt;edit-data&gt;, are made in this private
           candidate configuration.</t>
-        <t>Obtaining this private candidate over NETCONF will display the entire
+        <t>Obtaining this private candidate over NETCONF or RESTCONF will display the entire
           configuration, including all changes made to it.  Performing a &lt;commit&gt;
           operation will merge the changes from the private candidate into the
           running configuration (the same as a merge in source code management systems).
@@ -218,7 +219,7 @@
       <name>Private candidates solution</name>
       <t>The use of private candidates resolves the issues
         detailed earlier in this document.</t>
-      <t>NETCONF sessions and RESTCONF requests are able to utilize the concept of private candidates
+      <t>NETCONF sessions and RESTCONF clients are able to utilize the concept of private candidates
          in order to streamline network operations, particularly for
          machine-to-machine communication.</t>
       <t>Using this approach clients may improve their performance and reduce the
@@ -256,7 +257,8 @@
       </section>
       <section>
         <name>When is a private candidate destroyed</name>
-        <t>A private candidate is valid for the duration of the NETCONF session.  Issuing
+        <t>A private candidate is valid for the duration of the NETCONF session,
+        or the duration of the existence of the RESTCONF client.  Issuing
         a &lt;commit&gt; operation will not close the private candidate but will issue an
         implicit &lt;update&gt; operation resyncing changes from the running configuration.
         More details on this later in this document.</t>
@@ -348,20 +350,43 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
     decision of whether to use a private candidate depends on whether a datastore is
     explicitly referenced in the request using the RESTCONF extensions for NMDA
 	  <xref target="RFC8527"/>.</t>
-	  <t>When the server advertises the :private-candidate capability and the client does
-	   not explicitly reference a datastore in their request, all edits are made to a new
-	   private candidate, and the private candidate is committed.  This is analagous to
-	   the behavior of RESTCONF when the :candidate capability is specified by the server.</t>
-	  <t>When the private-candidate datastore is explicitly referenced, edits are made to
-	   a new private candidate and the private candidate is committed.</t>
+      <section>
+        <name>Datastore is not explicitly referenced</name>
+	    <t>When the server advertises the :private-candidate capability and the client
+         references the "{+restconf}/data" resource described in
+         <xref target="RFC8040" sectionFormat="of" section="3.3.1" />,
+         all edits are made to the client's private candidate, and the private candidate
+         is automatically committed.</t>
+        <t>This ensures backwards compatibility with RESTCONF clients that are not aware of
+         private candidates, because those clients will expect their changes to be
+         committed immediately.</t>
+      </section>
+      <section>
+        <name>Private candidate datastore is referenced in the request</name>
+	    <t>When the private-candidate datastore is explicitly referenced as an NMDA datastore,
+         edits are made to the client's private candidate, but the private candidate is not
+         committed.  To commit the changes, the client must explicitly send a commit request.</t>
+        <t>A commit request is of the form "{+restconf}/operations/ietf-netconf:commit",
+         using the API described in <xref target="RFC8040" sectionFormat="of" section="3.3.2" />.
+         The semantics are identical to the NETCONF &lt;commit&gt; operation.</t>
+        <t>Similarly, the client can perform ietf-netconf:discard-changes,
+         ietf-netconf:validate, and ietf-netconf:cancel-commit operations (if the appropriate
+         capabilities are implemented).  The semantics are identical to NETCONF.</t>
+      </section>
+      <section>
+        <name>Idenitifying the private candidate datastore</name>
+        <t>Each RESTCONF client has its own private candidate datastore.  The client
+         (and hence the private candidate datastore) is identified using the mechanism
+         described in <xref target="RFC8040" sectionFormat="of" section="2.5" />.</t>
+      </section>
 	</section>
       </section>
       <section>
         <name>Interaction between running and private-candidate(s)</name>
-        <t>Multiple NETCONF operations may be performed on the private candidate in order
+        <t>Multiple operations may be performed on the private candidate in order
         to stage changes ready for a commit.</t>
         <t>In the simplest example, a session may create a private candidate configuration,
-        perform multiple NETCONF operations (such as &lt;edit-config&gt;) on it and then
+        perform multiple operations (such as &lt;edit-config&gt;) on it and then
         perform a &lt;commit&gt; operation to merge the private candidate configuration
         into the running configuration in line with semantics in <xref target="RFC6241"/>.
         </t>
@@ -430,7 +455,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
         <name>Detecting and resolving conflicts</name>
         <section>
           <name>What is a conflict?</name>
-          <t>A conflict is when the intent of the NETCONF client may have
+          <t>A conflict is when the intent of the client may have
             been different had it had a different starting point.  In configuration
             terms, a conflict occurs when the same set of nodes in a configuration being
             altered by one user are changed between the start of the configuration
@@ -462,7 +487,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             can occur in a number of ways:</t>
           <ul>
             <li>Manually triggered by the &lt;update&gt; NETCONF operation</li>
-            <li>Automatically triggered by the NETCONF server running an &lt;update&gt;
+            <li>Automatically triggered by the server running an &lt;update&gt;
               operation, such as when a &lt;commit&gt; operation is performed by the 
               client in the private candidate session.</li>
           </ul>
@@ -1002,8 +1027,8 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
     </section>
     <section anchor="Contributors" numbered="false">
       <name>Contributors</name>
-      <t>The authors would like to thank Jan Lindblad, Lori-Ann McGrath, Jason Sterne and 
-      Rob Wilton for their contributions and reviews.</t>
+      <t>The authors would like to thank Jan Lindblad, Lori-Ann McGrath, Jason Sterne, 
+      Kent Watsen and Rob Wilton for their contributions and reviews.</t>
     </section>
   </back>
 </rfc>
