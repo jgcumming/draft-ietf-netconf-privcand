@@ -374,7 +374,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
          capabilities are implemented).  The semantics are identical to NETCONF.</t>
       </section>
       <section>
-        <name>Idenitifying the private candidate datastore</name>
+        <name>Identifying the private candidate datastore</name>
         <t>Each RESTCONF client has its own private candidate datastore.  The client
          (and hence the private candidate datastore) is identified using the mechanism
          described in <xref target="RFC8040" sectionFormat="of" section="2.5" />.</t>
