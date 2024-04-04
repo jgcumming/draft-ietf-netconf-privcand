@@ -1039,7 +1039,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
     </section>
     <section anchor="Contributors" numbered="false">
       <name>Contributors</name>
-      <t>The authors would like to thank Jan Lindblad, Lori-Ann McGrath, Jason Sterne, 
+      <t>The authors would like to thank Andy Bierman, Jan Lindblad, Lori-Ann McGrath, Jason Sterne, 
       Kent Watsen and Rob Wilton for their contributions and reviews.</t>
     </section>
   </back>
