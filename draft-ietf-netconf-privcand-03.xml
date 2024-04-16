@@ -452,14 +452,14 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             terms, a conflict occurs when the same set of nodes in a configuration being
             altered by one user are changed between the start of the configuration
             preparation (the first &lt;edit-config&gt;/&lt;edit-data&gt; operation)
-            and the conclusion of this configuration session (terminated by a
+            and the conclusion of this configuration activity (terminated by a
             &lt;commit&gt; operation).</t>
           <t>The situation where conflicts have the potential of occurring are when
               multiple configuration sessions are in progress and one session commits
               changes into the running configuration after the private candidate
               (branch) was created. </t>
-          <t>When this happens a conflict occurs if the nodes modified in the running
-              configuration are the same nodes that are modified in the private candidate
+          <t>When this happens a conflict occurs for each node modified in the running
+              configuration that is also modified in the private candidate
               configuration.</t>
           <t>A node is considered modified if:</t>
           <ul>
@@ -477,10 +477,11 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           </ul>
           <t>A server may choose to add additional checks over and above the above
           list.</t>
-          <t>When a conflict is identified that node is marked by a server as "in conflict".
-          This "in conflict" status does not propogate back up the tree to the parent node(s).
-          Each node in the ancestral tree is evaluated as in conflict or otherwise on it's
-          own merits.</t>
+          <t>When a conflict is identified that node is marked by the server as "in conflict"
+          in the private candidate.  This "in conflict" status does not propagate back up 
+          the tree to the parent node(s).  Each node in the ancestral tree is evaluated 
+          as in conflict or otherwise on its own merits.  The "in conflict" marker 
+          remains until the conflict is resolved on that node.</t>
           <t>Examples of conflicts include:</t>
           <ul>
             <li>An interface has been deleted in the running configuration that existed
