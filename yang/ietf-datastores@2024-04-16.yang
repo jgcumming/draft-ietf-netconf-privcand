@@ -5,7 +5,6 @@ module ietf-datastores {
 
   organization
     "IETF Network Modeling (NETMOD) Working Group";
-
   contact
     "WG Web:   <https://datatracker.ietf.org/wg/netmod/>
 
@@ -25,37 +24,37 @@ module ietf-datastores {
 
      Author:   Rob Wilton
                <rwilton@cisco.com>
-               
+
      Author:   James Cumming
                <james.cumming@nokia.com>
 
-     Author:   Rob Wills
+     Author:   Robert Wills
                <rowills@cisco.com>";
-
   description
     "This YANG module defines a set of identities for identifying
      datastores.
 
-     Copyright (c) 2024 IETF Trust and the persons identified as 
+     Copyright (c) 2024 IETF Trust and the persons identified as
      authors of the code. All rights reserved.
 
-     Redistribution and use in source and binary forms, with or 
-     without modification, is permitted pursuant to, and subject 
-     to the license terms contained in, the Revised BSD License 
-     set forth in Section 4.c of the IETF Trust’s Legal Provisions 
-     Relating to IETF Documents 
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject
+     to the license terms contained in, the Revised BSD License
+     set forth in Section 4.c of the IETF Trust’s Legal Provisions
+     Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
 
      This version of this YANG module is part of RFC 8342
-     (https://www.rfc-editor.org/info/rfc8342); and 
+     (https://www.rfc-editor.org/info/rfc8342); and
      draft-ietf-netconf-privcand.  See these documents
      for full legal notices.";
 
   revision 2024-04-16 {
-    description "Updated to introduce private candidates";
-    reference "draft-ietf-netconf-privcand: Netconf Private Candidates";
+    description
+      "Updated to introduce private candidates";
+    reference
+      "draft-ietf-netconf-privcand: Netconf Private Candidates";
   }
-
   revision 2018-02-14 {
     description
       "Initial revision.";
@@ -95,7 +94,7 @@ module ietf-datastores {
     base conventional;
     description
       "The private candidate configuration datastore.";
-  }  
+  }
 
   identity startup {
     base conventional;
