@@ -935,6 +935,18 @@ module ietf-netconf {
     if-feature "private-candidate";
     description "Updates the private candidate from the running configuration.";
     reference "draft-ietf-netconf-privcand";
+    input {
+      leaf resolution-mode {
+        description 
+          "Mode to resolve conflicts between running and private-candidate 
+           configurations.";
+        type enumeration {
+          enum revert-on-conflict;
+          enum ignore;
+          enum overwrite;
+        }
+      }
+    }
   }
 
   rpc validate {

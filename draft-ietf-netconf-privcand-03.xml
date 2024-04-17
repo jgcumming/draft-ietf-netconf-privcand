@@ -1083,22 +1083,24 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             <t>The &lt;cancel-commit&gt; operation is unchanged.  Any changes made to the running
             configuration are returned to the private candidate if it still exists.</t>
       </section>
+    </section>
+    
+    <section>
+      <name>YANG modules</name>
       <section>
-        <name>YANG modules</name>
-        <section>
-          <name>ietf-netconf@2024-05-16.yang</name>
-          <sourcecode type="yang" markers="true" name="ietf-netconf@2024-04-16.yang">
+        <name>ietf-netconf@2024-04-16.yang</name>
+        <sourcecode type="yang" markers="true" name="ietf-netconf@2024-04-16.yang">
 
-          </sourcecode>
-        </section>
-        <section>
-          <name>ietf-datastores@2024-05-16.yang</name>
-          <sourcecode type="yang" markers="true" name="ietf-datastores@2024-04-16.yang">
+        </sourcecode>
+      </section>
+      <section>
+        <name>ietf-datastores@2024-04-16.yang</name>
+        <sourcecode type="yang" markers="true" name="ietf-datastores@2024-04-16.yang">
 
-          </sourcecode>
-        </section>
+        </sourcecode>
       </section>
     </section>
+    
     <section anchor="Contributors" numbered="false">
       <name>Contributors</name>
       <t>The authors would like to thank Andy Bierman, Jan Lindblad, Lori-Ann McGrath, Jason Sterne, 
