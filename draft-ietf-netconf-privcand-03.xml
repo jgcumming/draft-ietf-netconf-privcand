@@ -521,8 +521,12 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           xpaths and values.</t>
           <t>Note: If a server implementation has chosen to automatically issue an
           &lt;update&gt; operation every time a change is made to the running configuration
-          the server MUST have the system-wide default resolution mode set to ignore or
-          overwrite</t>
+          the server will use the system-wide default resolution mode.  If this resolution
+          mode is ignore or overwrite the conflicts will be resolved using those rules. If
+          the resolution mode is set to revert-on-conflict the semantics are the same as
+          the ignore method, however, all changes, whether in conflict or otherwise will
+          be marked in the private candidate as "in-conflict".  This means that any subsequent
+          &lt;commit&gt; will fail until the client makes a conscious choice to resolve them.</t>
         </section>
         <section>
           <name>Conflict resolution</name>
@@ -569,6 +573,8 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           <t>There are three defined resolution methods:</t>
           <section>
             <name>Ignore</name>
+            <t>Reminder: The starting configuration and workflow used to illustrate this
+            resolution method is detailed in the parent chapter of this document.</t>
             <t>When using the ignore resolution method items in the running
             configuration that are not in conflict with the private candidate
             configuration are merged from the running configuration
@@ -654,6 +660,8 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           </section>
           <section>
             <name>Overwrite</name>
+            <t>Reminder: The starting configuration and workflow used to illustrate this
+            resolution method is detailed in the parent chapter of this document.</t>
             <t>When using the overwrite resolution method items in the running
             configuration that are not in conflict with the private candidate
             configuration are merged from the running configuration into the
@@ -735,6 +743,8 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           </section>
           <section>
             <name>Revert-on-conflict</name>
+            <t>Reminder: The starting configuration and workflow used to illustrate this
+            resolution method is detailed in the parent chapter of this document.</t>
             <t>When using the revert-on-conflict resolution method an update
             will fail to complete when any conflicting node is found.  The
             session issuing the update will be informed of the failure.</t>
