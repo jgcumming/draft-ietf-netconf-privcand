@@ -435,8 +435,8 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
         operation after a change to the running configuration from another client.  However, this
         choice should be made with caution as it will replace, overwrite, or otherwise alter 
         (depending on the servers default resolution mode, discussed later) the private candidate
-        configuration without notifying the client</t>
-        <t>A &lt;compare&gt; operation may be performed against:</t>
+        configuration without notifying the client.</t>
+        <t>A &lt;compare&gt; operation MAY be performed against:</t>
         <ul>
         <li>The initial creation point of the private candidate's branch</li>
         <li>Against the last update point of the private candidate's branch</li>
@@ -475,7 +475,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           definition</li>
           <li>There is a change to any YANG metadata associated with the node</li>
           </ul>
-          <t>A server may choose to add additional checks over and above the above
+          <t>A server MAY choose to add additional checks over and above the above
           list.</t>
           <t>When a conflict is identified that node is marked by the server as "in conflict"
           in the private candidate.  This "in conflict" status does not propagate back up 
@@ -558,9 +558,9 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           <artwork>
                         update commit
        +--------------------+---+------&gt; private candidate 1
-      /                    /     \
-     /  edit-config       /       ⌄
-+---+--------+--------+--+--------+----&gt; running configuration
+      /                     ^    \
+     /  edit-config        /      ⌄
++---+--------+--------+---+-------+----&gt; running configuration
  edit-config  \       ^
                \     /
                 +---+------------------&gt; private candidate 2
@@ -863,6 +863,8 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
                     against the running configuration.</t>
             <t>The &lt;update&gt; operation may be triggered manually by the
                 client or automatically by the server.</t>
+            <t>The &lt;update&gt; operation is atomic.  This means that the entire &lt;update&gt;
+            operation succeeeds or the entire &lt;update&gt; operation MUST fail.</t>
             <t>The &lt;update&gt; operation MUST be implicitly triggered by a specific 
             NETCONF session issuing a &lt;commit&gt; operation when using private
             candidates.  The actual order of operations in the server MUST be to issue 
@@ -1000,7 +1002,9 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             <t>The &lt;discard-changes&gt; operation is updated to accept private-candidate
             as a valid input to the newly added &lt;target&gt; field.</t>
             <t>Discarding the change to the private candidate will reset it to the state it
-            was when it was initially created (which may not match the current running configuration).</t>
+            was when it was initially created, or to the state following the latest &lt;update&gt;
+            operation, whichever is most recent.  This state may not match the current 
+            running configuration.</t>
             <t>To align the private candidate with the running configuration the &lt;update&gt;
             or &lt;delete-config&gt; operations may be used.</t>
             <t>If the &lt;target&gt; field is not provided with the &lt;private-candidate/&gt;
