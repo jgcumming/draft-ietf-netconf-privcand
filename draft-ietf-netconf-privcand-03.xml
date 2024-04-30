@@ -477,6 +477,8 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           </ul>
           <t>A server MAY choose to add additional checks over and above the above
           list.</t>
+          <t>If a server implements the transaction ID feature then this SHOULD be considered
+          as part of detecting a conflict.</t>
           <t>When a conflict is identified that node is marked by the server as "in conflict"
           in the private candidate.  This "in conflict" status does not propagate back up 
           the tree to the parent node(s).  Each node in the ancestral tree is evaluated 
