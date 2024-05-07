@@ -685,10 +685,7 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config target.  
-               Deleting the private candidate will destroy it and will 
-               immediately recreate a new one for the client based on 
-               the current contents of the running configuration datastore";
+              "The private candidate configuration is the config target.";
           }
           leaf url {
             if-feature "url";

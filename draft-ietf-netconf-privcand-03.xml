@@ -239,7 +239,7 @@
         <t>A private candidate is defined earlier in the definitions and terminology
           section of this document.</t>
       </section>
-      <section>
+      <section anchor="section_when_created">
         <name>When is a private candidate created</name>
         <t>A private candidate datastore is created when the first RPC that requires access
         to it is sent to the server.  This could be, for example, an &lt;edit-config&gt;.</t>
@@ -1005,9 +1005,8 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             <name>&lt;delete-config&gt;</name>
             <t>The &lt;delete-config&gt; operation is updated to accept private-candidate as
           a valid input to the &lt;target&gt; field.</t>
-          <t>Deleting the private candidate will destroy the private candidate for the client
-          and will immediately recreate a new one for the client based on the current contents
-          of the running configuration datastore.</t>
+          <t>Deleting the private candidate will destroy the private candidate for the client.
+          A new one will subsequently be created as described in <xref target="section_when_created" />.</t>
           </section>
           <section>
             <name>&lt;discard-changes&gt;</name>
@@ -1794,10 +1793,7 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config target.  
-               Deleting the private candidate will destroy it and will 
-               immediately recreate a new one for the client based on 
-               the current contents of the running configuration datastore";
+              "The private candidate configuration is the config target.";
           }
           leaf url {
             if-feature "url";
