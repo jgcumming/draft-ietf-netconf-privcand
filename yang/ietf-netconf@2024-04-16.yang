@@ -888,9 +888,9 @@ module ietf-netconf {
         description
           "This parameter is given in order to commit a persistent
            confirmed commit.  The value must be equal to the value
-           given in the 'persist' parameter to the <commit> operation.
-           If it does not match, the operation fails with an
-           'invalid-value' error.";
+           given in the 'persist' parameter to the <commit>
+           operation.  If it does not match, the operation fails
+           with an 'invalid-value' error.";
         reference
           "RFC 6241, Section 8.3.4.1";
       }
@@ -941,9 +941,9 @@ module ietf-netconf {
         description
           "This parameter is given in order to cancel a persistent
            confirmed commit.  The value must be equal to the value
-           given in the 'persist' parameter to the <commit> operation.
-           If it does not match, the operation fails with an
-           'invalid-value' error.";
+           given in the 'persist' parameter to the <commit>
+           operation.  If it does not match, the operation fails
+           with an 'invalid-value' error.";
       }
     }
   }
