@@ -29,7 +29,8 @@
       updates="6241,8526,9144" 
       submissionType="IETF" 
       xml:lang="en" 
-      version="3">
+      version="3"
+      consensus="true">
   <front>
     <title abbrev="NETCONF Private Candidates">NETCONF Private Candidates</title>
     <seriesInfo name="Internet-Draft" value="draft-ietf-netconf-privcand-03"/>
@@ -74,21 +75,21 @@
 	       both provide a mechanism for one or more
          clients to make configuration changes to a device running as a NETCONF/RESTCONF
          server.  Each client has the ability to make one or more
-         configuration change to the servers shared candidate configuration.<br/><br/>
+         configuration changes to the server's shared candidate configuration.<br/><br/>
 		 
 		 As the name shared candidate suggests, all clients have access to the same candidate
 		 configuration.  This means that multiple clients may make changes to the shared
-		 candidate prior to the configuration being committed.  This behavior may be
+		 candidate prior to the configuration being committed.  This behaviour may be
 		 undesirable as one client may unwittingly commit the configuration changes made
 		 by another client.  <br/><br/>
 		 
-		 NETCONF provides a way to mitigate this behavior by allowing clients
+		 NETCONF provides a way to mitigate this behaviour by allowing clients
 		 to place a lock on the shared candidate.  The placing of this lock means that
-		 no other client may make any changes until that lock is released.  This behavior
+		 no other client may make any changes until that lock is released.  This behaviour
 		 is, in many situations, also undesirable.  <br/><br/>
 
-		 Many network devices already support private candidates configurations,
-		 where a user (machine or otherwise) is able to edit a personal copy of a devices
+		 Many network devices already support private candidate configurations,
+		 where a user (machine or otherwise) is able to edit a personal copy of a device's
 		 configuration without blocking other users from doing so.<br/><br/>
 	 
 	     This document details the extensions to the NETCONF protocol in order to support
@@ -185,7 +186,7 @@
              Whilst one of the clients holds a lock, no other client may edit the configuration.
              This will result in the client failing and having to retry.  Whilst this may be a
              desirable consequence when two clients are editing the same section of the configuration,
-             where they are editing different sections this behavior may hold up valid operational
+             where they are editing different sections this behaviour may hold up valid operational
              activity.</t>
           <t>Additionally, a lock placed on the shared candidate configuration must also lock the
           running configuration, otherwise changes committed directly into the running datastore
@@ -219,10 +220,10 @@
       <name>Private candidates solution</name>
       <t>The use of private candidates resolves the issues
         detailed earlier in this document.</t>
-      <t>NETCONF sessions and RESTCONF clients are able to utilize the concept of private candidates
-         in order to streamline network operations, particularly for
+      <t>NETCONF sessions and RESTCONF clients are able to utilize private candidates
+         to streamline network operations, particularly for
          machine-to-machine communication.</t>
-      <t>Using this approach clients may improve their performance and reduce the
+      <t>Using this approach, clients may improve their performance and reduce the
         likelihood of blocking other clients from continuing with valid operational
         activities.</t>
       <t>One or more private candidates may exist at any one time, however, a
@@ -239,7 +240,7 @@
         <t>A private candidate is defined earlier in the definitions and terminology
           section of this document.</t>
       </section>
-      <section>
+      <section anchor="section_when_created">
         <name>When is a private candidate created</name>
         <t>A private candidate datastore is created when the first RPC that requires access
         to it is sent to the server.  This could be, for example, an &lt;edit-config&gt;.</t>
@@ -477,7 +478,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           </ul>
           <t>A server MAY choose to add additional checks over and above the above
           list.</t>
-          <t>If a server implements the transaction ID feature then this SHOULD be considered
+          <t>If a server implements the transaction ID feature then this MAY be considered
           as part of detecting a conflict.</t>
           <t>When a conflict is identified that node is marked by the server as "in conflict"
           in the private candidate.  This "in conflict" status does not propagate back up 
@@ -522,7 +523,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           <t>The location of the conflict(s) should be reported as a list of
           xpaths and values.</t>
           <t>Note: If a server implementation has chosen to automatically issue an
-          &lt;update&gt; operation every time a change is made to the running configuration
+          &lt;update&gt; operation every time a change is made to the running configuration,
           the server will use the system-wide default resolution mode.  If this resolution
           mode is ignore or overwrite the conflicts will be resolved using those rules. If
           the resolution mode is set to revert-on-conflict the semantics are the same as
@@ -535,7 +536,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           <t>Conflict resolution defines which configuration elements are retained 
           when a conflict is resolved; those from the running configuration or 
           those from the private candidate configuration.</t>
-          <t>When a conflict is detected in any client triggered activity, the client 
+          <t>When a conflict is detected in any client-triggered activity, the client 
           MUST be informed.  The client then has a number of options available to 
           resolve the conflict.</t>
           <t>An &lt;update&gt; operation uses the resolution method specified in the
@@ -560,7 +561,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           <t>The example workflow is shown in this diagram and is used for the purpose 
           of the examples below.  In these examples the reader should assume that the
           &lt;update&gt; operation is manually provided by a client working in 
-          pruvate candidate 1.</t>
+          private candidate 1.</t>
           <artwork>
                         update commit
        +--------------------+---+------&gt; private candidate 1
@@ -577,7 +578,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             <name>Ignore</name>
             <t>Reminder: The starting configuration and workflow used to illustrate this
             resolution method is detailed in the parent chapter of this document.</t>
-            <t>When using the ignore resolution method items in the running
+            <t>When using the ignore resolution method, items in the running
             configuration that are not in conflict with the private candidate
             configuration are merged from the running configuration
             into the private candidate configuration.  Nodes that are in conflict
@@ -664,7 +665,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             <name>Overwrite</name>
             <t>Reminder: The starting configuration and workflow used to illustrate this
             resolution method is detailed in the parent chapter of this document.</t>
-            <t>When using the overwrite resolution method items in the running
+            <t>When using the overwrite resolution method, items in the running
             configuration that are not in conflict with the private candidate
             configuration are merged from the running configuration into the
             private candidate configuration.  Nodes that are in conflict are
@@ -747,7 +748,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             <name>Revert-on-conflict</name>
             <t>Reminder: The starting configuration and workflow used to illustrate this
             resolution method is detailed in the parent chapter of this document.</t>
-            <t>When using the revert-on-conflict resolution method an update
+            <t>When using the revert-on-conflict resolution method, an update
             will fail to complete when any conflicting node is found.  The
             session issuing the update will be informed of the failure.</t>
             <t>No changes, whether conflicting or un-conflicting are merged into
@@ -763,7 +764,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             operational stability.</t>
             <t>This resolution method MUST be supported by a server.</t>
             <t>Example:</t>
-            <t>Session 1 edits the configuration by submitting the following</t>
+            <t>Session 1 edits the configuration by submitting the following:</t>
             <sourcecode type="xml">
 &lt;rpc message-id="config"
         xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"&gt;
@@ -837,7 +838,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
         </section>
         <section>
           <name>Default resolution mode and advertisement of this mode</name>
-          <t>The default resolution mode is revert-on-conflict, however, a system MAY
+          <t>The default resolution mode is revert-on-conflict.  However, a system MAY
           choose to select a different default resolution mode.</t>
           <t>The default resolution mode MUST be advertised in the :private-candidate
           capability by adding the default-resolution-mode parameter if the system default
@@ -854,7 +855,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
         </section>
         <section>
           <name>Supported resolution modes</name>
-          <t>A server SHOULD support all three resolution modes, however, if the server
+          <t>A server SHOULD support all three resolution modes.  However, if the server
           does not support all three modes, the server MUST report the supported modes 
           in the :private-candidate capability using the supported-resolution-modes, 
           for example:</t>
@@ -904,7 +905,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
         <section>
           <name>Updated NETCONF operations</name>
           <t>Specific NETCONF operations altered by this document are listed in this section.
-            Any notable behavior with existing unaltered NETCONF operations is noted in the
+            Any notable behaviour with existing unaltered NETCONF operations is noted in the
             appendix.</t>
           <section>
             <name>&lt;edit-config&gt;</name>
@@ -934,14 +935,14 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           <section>
             <name>&lt;lock&gt; and &lt;unlock&gt;</name>
             <t>Performing a &lt;lock&gt; on the private-candidate datastore is a valid operation, although
-            it is understood that the practical effect of this is a 'no op' as only one session may edit
+            the practical effect of this is a 'no op' as only one session may edit
             the locked private candidate.</t>
             <t>If the client's intention is that no other session may commit changes to the system then
             the client should issue a &lt;lock&gt; operation on the running datastore.</t>
             <t>Other NETCONF sessions are still able to create a new private-candidate
                 configurations, make edits to them and perform operations on them, such as 
                 &lt;update&gt; or &lt;discard-changes&gt;.</t>
-            <t>Performing an &lt;unlock&gt; on the private-candidate datastore is a valid operation</t>
+            <t>Performing an &lt;unlock&gt; on the private-candidate datastore is a valid operation.</t>
             <t>Changes in the private-candidate datastore are not lost when the lock is released.</t>
           </section>
           <section>
@@ -1005,9 +1006,9 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             <name>&lt;delete-config&gt;</name>
             <t>The &lt;delete-config&gt; operation is updated to accept private-candidate as
           a valid input to the &lt;target&gt; field.</t>
-          <t>Deleting the private candidate will destroy the private candidate for the client
-          and will immediately recreate a new one for the client based on the current contents
-          of the running configuration datastore.</t>
+          <t>Deleting the private candidate will destroy the private candidate for the client.
+          A new one will subsequently be created on first access as described in
+          <xref target="section_when_created" />.</t>
           </section>
           <section>
             <name>&lt;discard-changes&gt;</name>
@@ -1030,16 +1031,16 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             configuration.</t>
             <section>
               <name>Interactions with commit confirmed operations and private candidates</name>
-              <t>Nothing in this document alters the behavior of the &lt;confirmed&gt;, 
+              <t>Nothing in this document alters the behaviour of the &lt;confirmed&gt;, 
               &lt;persist&gt; or &lt;persist-id&gt; parameters and these MUST work when using the 
               private-candidate configuration datastore if the :confirmed-commit capability is 
               advertised.</t>
               <t>When a private candidate is committed using the &lt;confirmed/&gt; parameter and
-              the commit operation disconnects the clients session, the configuration in the 
+              the commit operation disconnects the client's session, the configuration in the 
               running configuration is immediately reverted and the proposed client changes 
               are discarded.</t>
               <t>When a private candidate is committed using the &lt;confirmed/&gt; parameter and
-              the commit operation does not disconnect the clients session, and subsequently, the 
+              the commit operation does not disconnect the client's session, and subsequently, the 
               commit operation is either cancelled using the &lt;cancel-commit&gt; operation or 
               the timeout expires, the running configuration is reverted and the proposed 
               client changes are returned to the client's private candidate.</t>
@@ -1087,7 +1088,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
       </references>
     </references>
     <section>
-      <name>Behavior with unaltered NETCONF operations</name>
+      <name>Behaviour with unaltered NETCONF operations</name>
       <section>
         <name>&lt;get&gt;</name>
         <t>The &lt;get&gt; operation does not accept a datastore value and therefore
@@ -1530,7 +1531,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config source.";
+              "The private candidate configuration is the config
+               source.";
           }
           leaf running {
             type empty;
@@ -1588,7 +1590,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config target.";
+              "The private candidate configuration is the config
+               target.";
           }
           leaf running {
             if-feature "writable-running";
@@ -1701,7 +1704,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config target.";
+              "The private candidate configuration is the config
+               target.";
           }
           leaf running {
             if-feature "writable-running";
@@ -1741,7 +1745,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config source.";
+              "The private candidate configuration is the config
+               source.";
           }
           leaf running {
             type empty;
@@ -1794,10 +1799,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config target.  
-               Deleting the private candidate will destroy it and will 
-               immediately recreate a new one for the client based on 
-               the current contents of the running configuration datastore";
+              "The private candidate configuration is the config
+               target.";
           }
           leaf url {
             if-feature "url";
@@ -1834,7 +1837,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config target.";
+              "The private candidate configuration is the config
+               target.";
           }
           leaf running {
             type empty;
@@ -1876,7 +1880,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config target.";
+              "The private candidate configuration is the config
+               target.";
           }
           leaf running {
             type empty;
@@ -1941,7 +1946,7 @@ module ietf-netconf {
   }
 
   rpc commit {
-    if-feature "candidate or private-candidate"; // TODO: How to do a logical OR in YANG 1.0
+    if-feature "candidate or private-candidate";
     description
       "Commit the candidate or private candidate configuration
        as the device's new current configuration.";
@@ -2003,7 +2008,7 @@ module ietf-netconf {
   }
 
   rpc discard-changes {
-    if-feature "candidate or private-candidate"; // TODO: How to do a logical OR in YANG 1.0
+    if-feature "candidate or private-candidate";
     description
       "Revert the candidate configuration to the current
        running configuration.";
@@ -2023,7 +2028,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config target.";
+              "The private candidate configuration is the config
+               target.";
           }
         }
       }
@@ -2055,14 +2061,15 @@ module ietf-netconf {
   rpc update {
     if-feature "private-candidate";
     description
-      "Updates the private candidate from the running configuration.";
+      "Updates the private candidate from the running
+       configuration.";
     reference
       "draft-ietf-netconf-privcand";
     input {
       leaf resolution-mode {
         description
-          "Mode to resolve conflicts between running and private-candidate
-           configurations.";
+          "Mode to resolve conflicts between running and
+           private-candidate configurations.";
         default revert-on-conflict;
         type enumeration {
           enum revert-on-conflict;
@@ -2097,7 +2104,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config source.";
+              "The private candidate configuration is the config
+               source.";
           }
           leaf running {
             type empty;

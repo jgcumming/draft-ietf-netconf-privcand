@@ -421,7 +421,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config source.";
+              "The private candidate configuration is the config
+               source.";
           }
           leaf running {
             type empty;
@@ -479,7 +480,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config target.";
+              "The private candidate configuration is the config
+               target.";
           }
           leaf running {
             if-feature "writable-running";
@@ -592,7 +594,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config target.";
+              "The private candidate configuration is the config
+               target.";
           }
           leaf running {
             if-feature "writable-running";
@@ -632,7 +635,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config source.";
+              "The private candidate configuration is the config
+               source.";
           }
           leaf running {
             type empty;
@@ -685,10 +689,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config target.  
-               Deleting the private candidate will destroy it and will 
-               immediately recreate a new one for the client based on 
-               the current contents of the running configuration datastore";
+              "The private candidate configuration is the config
+               target.";
           }
           leaf url {
             if-feature "url";
@@ -725,7 +727,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config target.";
+              "The private candidate configuration is the config
+               target.";
           }
           leaf running {
             type empty;
@@ -767,7 +770,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config target.";
+              "The private candidate configuration is the config
+               target.";
           }
           leaf running {
             type empty;
@@ -832,7 +836,7 @@ module ietf-netconf {
   }
 
   rpc commit {
-    if-feature "candidate or private-candidate"; // TODO: How to do a logical OR in YANG 1.0
+    if-feature "candidate or private-candidate";
     description
       "Commit the candidate or private candidate configuration
        as the device's new current configuration.";
@@ -894,7 +898,7 @@ module ietf-netconf {
   }
 
   rpc discard-changes {
-    if-feature "candidate or private-candidate"; // TODO: How to do a logical OR in YANG 1.0
+    if-feature "candidate or private-candidate";
     description
       "Revert the candidate configuration to the current
        running configuration.";
@@ -914,7 +918,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config target.";
+              "The private candidate configuration is the config
+               target.";
           }
         }
       }
@@ -946,14 +951,15 @@ module ietf-netconf {
   rpc update {
     if-feature "private-candidate";
     description
-      "Updates the private candidate from the running configuration.";
+      "Updates the private candidate from the running
+       configuration.";
     reference
       "draft-ietf-netconf-privcand";
     input {
       leaf resolution-mode {
         description
-          "Mode to resolve conflicts between running and private-candidate
-           configurations.";
+          "Mode to resolve conflicts between running and
+           private-candidate configurations.";
         default revert-on-conflict;
         type enumeration {
           enum revert-on-conflict;
@@ -988,7 +994,8 @@ module ietf-netconf {
             if-feature "private-candidate";
             type empty;
             description
-              "The private candidate configuration is the config source.";
+              "The private candidate configuration is the config
+               source.";
           }
           leaf running {
             type empty;
