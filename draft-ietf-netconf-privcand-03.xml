@@ -1007,7 +1007,8 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             <t>The &lt;delete-config&gt; operation is updated to accept private-candidate as
           a valid input to the &lt;target&gt; field.</t>
           <t>Deleting the private candidate will destroy the private candidate for the client.
-          A new one will subsequently be created as described in <xref target="section_when_created" />.</t>
+          A new one will subsequently be created on first access as described in
+          <xref target="section_when_created" />.</t>
           </section>
           <section>
             <name>&lt;discard-changes&gt;</name>
