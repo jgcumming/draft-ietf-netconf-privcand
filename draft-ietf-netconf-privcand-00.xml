@@ -29,7 +29,8 @@
       updates="" 
       submissionType="IETF" 
       xml:lang="en" 
-      version="3">
+      version="3"
+      consensus="true">
   <front>
     <title abbrev="NETCONF Private Candidates">NETCONF Private Candidates</title>
     <seriesInfo name="Internet-Draft" value="draft-ietf-netconf-privcand-00"/>
