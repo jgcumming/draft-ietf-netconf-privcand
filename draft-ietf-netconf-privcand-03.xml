@@ -319,6 +319,47 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             <t>The private candidate configuration datastore is exposed as its
              own datastore similar to other <xref target="RFC8342">NMDA</xref>
              capable datastores.  This datastore is called private-candidate.</t>
+<artwork><![CDATA[
+
++-------------+                 +-----------+       +---------------------+
+| <candidate> |                 | <startup> |       | <private-candidate> |-+
+|  (ct, rw)   |<---+       +--->| (ct, rw)  |    +->|     (ct, rw)        | |-+
++-------------+    |       |    +-----------+    |  +---------------------+ | |
+      |           |       |           |         |    +---------------------+ | 
+      |         +-----------+<--------+         |      +---------------------+  
+      +-------->| <running> |                   |            |  // multiple
+                | (ct, rw)  |-------------------+            |  // private-candidates
+                +-----------+<-------------------------------+  // possible
+                      |
+                      |        // configuration transformations,
+                      |        // e.g., removal of nodes marked as
+                      |        // "inactive", expansion of
+                      |        // templates
+                      v
+                +------------+
+                | <intended> | // subject to validation
+                | (ct, ro)   |
+                +------------+
+                      |        // changes applied, subject to
+                      |        // local factors, e.g., missing
+                      |        // resources, delays
+                      |
+  dynamic              |   +-------- learned configuration
+  configuration        |   +-------- system configuration
+  datastores -----+    |   +-------- default configuration
+                  |    |   |
+                  v    v   v
+              +---------------+
+              | <operational> | <-- system state
+              | (ct + cf, ro) |
+              +---------------+
+
+ct = config true; cf = config false
+rw = read-write; ro = read-only
+boxes denote named datastores
+]]>
+</artwork>
+
             <t>All NMDA operations that support candidate NMDA datastore SHOULD
             support the private-candidate datastore.</t>
             <t>Any non-NMDA aware NETCONF operations that take a source or target
