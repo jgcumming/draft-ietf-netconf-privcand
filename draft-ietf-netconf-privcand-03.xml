@@ -1946,7 +1946,6 @@ module ietf-netconf {
   }
 
   rpc commit {
-    // TODO: How to do a logical OR in YANG 1.0
     if-feature "candidate or private-candidate";
     description
       "Commit the candidate or private candidate configuration
@@ -2009,7 +2008,6 @@ module ietf-netconf {
   }
 
   rpc discard-changes {
-    // TODO: How to do a logical OR in YANG 1.0
     if-feature "candidate or private-candidate";
     description
       "Revert the candidate configuration to the current
