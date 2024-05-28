@@ -836,7 +836,8 @@ module ietf-netconf {
   }
 
   rpc commit {
-    if-feature "candidate or private-candidate";
+    if-feature "candidate";
+    if-feature "private-candidate";
     description
       "Commit the candidate or private candidate configuration
        as the device's new current configuration.";
@@ -898,7 +899,8 @@ module ietf-netconf {
   }
 
   rpc discard-changes {
-    if-feature "candidate or private-candidate";
+    if-feature "candidate";
+    if-feature "private-candidate";
     description
       "Revert the candidate configuration to the current
        running configuration.";
