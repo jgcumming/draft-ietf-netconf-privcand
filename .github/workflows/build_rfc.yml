@@ -39,6 +39,8 @@ jobs:
         retention-days: 5
     - name: Output git status
       run: git status
+    - name: Download artifacts
+      uses: actions/download-artifacts@v4
     - name: stage changed files
       run: git add .
     - name: Add username
