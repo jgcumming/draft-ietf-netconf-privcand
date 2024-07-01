@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Install xml2rfc
-      run: apt-get install -y xml2rfc
+      run: sudo apt-get install -y xml2rfc
     - uses: actions/checkout@v4
     - name: Run a one-line script
       run: ./build-all.sh
