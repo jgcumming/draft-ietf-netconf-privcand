@@ -37,15 +37,4 @@ jobs:
           build/*.txt
           build/*.html
         retention-days: 5
-    - name: Output git status
-      run: git status
-    - name: Download artifacts
-      uses: actions/download-artifact@v4
-    - name: stage changed files
-      run: git add .
-    - name: Add username
-      run: git config user.name $env:GITHUB_TRIGGERING_ACTOR
-    - name: Commit changed files
-      run: git commit -m "Auto updating txt and html versions of the draft"
-        
-
+    
