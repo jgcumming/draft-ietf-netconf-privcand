@@ -37,9 +37,11 @@ jobs:
           build/*.txt
           build/*.html
         retention-days: 5
-    - name: output
-      runs-on: ubuntu-latest
-      run: echo ${{ secrets.ssh }}
+  afterwards:
+    runs-on: ubuntu-latest
+    steps:
+      - name: output
+        run: echo ${{ secrets.ssh }}
 
         
 
