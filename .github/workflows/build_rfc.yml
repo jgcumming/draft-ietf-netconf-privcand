@@ -37,11 +37,8 @@ jobs:
           build/*.txt
           build/*.html
         retention-days: 5
-  afterwards:
-    runs-on: ubuntu-latest
-    steps:
-      - name: output
-        run: git status
+    - name: Output git status
+      run: git status
 
         
 
