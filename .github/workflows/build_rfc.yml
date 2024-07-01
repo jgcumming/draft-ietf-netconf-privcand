@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: output
-        run: echo ${{ secrets.ssh }}
+        run: git status
 
         
 
