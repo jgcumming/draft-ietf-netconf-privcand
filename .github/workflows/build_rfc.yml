@@ -36,6 +36,9 @@ jobs:
         path: |
           build/*.txt
           build/*.html
+        retention-days: 5
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
 
         
 
