@@ -44,7 +44,7 @@ jobs:
     - name: stage changed files
       run: git add .
     - name: Add username
-      run: git config user.name ${{ GITHUB_TRIGGERING_ACTOR }}
+      run: git config user.name $env:GITHUB_TRIGGERING_ACTOR
     - name: Commit changed files
       run: git commit -m "Auto updating txt and html versions of the draft"
         
