@@ -4,7 +4,6 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -37,6 +36,5 @@ jobs:
         path: |
           build/*.txt
           build/*.html
-
-        
-
+        retention-days: 5
+    
