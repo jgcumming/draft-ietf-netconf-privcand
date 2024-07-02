@@ -26,7 +26,7 @@
       docName="draft-ietf-netconf-privcand-04" 
       ipr="trust200902" 
       obsoletes="" 
-      updates="6241,8526,9144" 
+      updates="6241,8342,8526,9144" 
       submissionType="IETF" 
       xml:lang="en" 
       version="3"
@@ -103,6 +103,33 @@
           interpreted as described in BCP 14 <xref target="RFC2119"/>
           <xref target="RFC8174"/> when, and only when, they appear in
           all capitals, as shown here.</t>
+      </section>
+      <section>
+        <name>Updates to RFC 6241 and RFC 8526</name>
+        <t>This document updates <xref target="RFC6241"/> to augment the
+          NETCONF &lt;edit-config&gt;, &lt;copy-config&gt;, &lt;get-config&gt;,
+          &lt;commit&gt;, &lt;lock&gt; and &lt;unlock&gt; operations to
+          describe how they work with a private candidate datastore.  These
+          updates are described in
+          <xref target="section_updated_netconf_operations"/>.</t>
+        <t>This document also updates <xref target="RFC8526"/> to augment the
+          NETCONF &lt;edit-data&gt; and &lt;get-data&gt; operations to
+          describe how they work with a private candidate datastore.  These
+          updates are described in
+          <xref target="section_updated_netconf_operations"/>.</t>
+      </section>
+      <section>
+        <name>Updates to RFC 8342</name>
+        <t>This document updates <xref target="RFC8342"/> to show how the
+          private candidate datastore relates to other datastores.  This is
+          shown in <xref target="section_private_candidate_datastore"/>.</t>
+      </section>
+      <section>
+        <name>Updates to RFC 9144</name>
+        <t>This document updates <xref target="RFC9144"/> to augment the
+          &lt;compare&gt; operation to describe how it works with the
+          private candidate datastore.  These updates are described in
+          <xref target="section_updates_to_compare"/>.</t>
       </section>
     </section>
     <section>
@@ -314,7 +341,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             the shared mode and the private mode and no extensions are required for any
             RPCs (including &lt;lock&gt;)</t>
           </section>
-          <section>
+          <section anchor="section_private_candidate_datastore">
             <name>Private candidate datastore</name>
             <t>The private candidate configuration datastore is exposed as its
              own datastore similar to other <xref target="RFC8342">NMDA</xref>
@@ -943,7 +970,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             </section>
           </section>
         </section>
-        <section>
+        <section anchor="section_updated_netconf_operations">
           <name>Updated NETCONF operations</name>
           <t>Specific NETCONF operations altered by this document are listed in this section.
             Any notable behaviour with existing unaltered NETCONF operations is noted in the
@@ -963,7 +990,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           </section>
           <section>
             <name>&lt;edit-data&gt;</name>
-            <t>The &lt;edit-data&gt; operation is updated to accept
+            <t>The <xref target="RFC8526">&lt;edit-data&gt;</xref> operation is updated to accept
                     private-candidate as valid input to the &lt;datastore&gt; field.
                     (datastore is an identityref and so the actual input will be 
                     ds:private-candidate).</t>
@@ -986,7 +1013,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
             <t>Performing an &lt;unlock&gt; on the private-candidate datastore is a valid operation.</t>
             <t>Changes in the private-candidate datastore are not lost when the lock is released.</t>
           </section>
-          <section>
+          <section anchor="section_updates_to_compare">
             <name>&lt;compare&gt;</name>
             <t>Performing a <xref target="RFC9144">&lt;compare&gt;</xref> operation 
                 with the private-candidate datastore as either the &lt;source&gt;
@@ -1026,7 +1053,8 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
           </section>
           <section>
             <name>&lt;get-data&gt;</name>
-            <t>The &lt;get-data&gt; operation accepts the private-candidate as a valid datastore.</t>
+            <t>The <xref target="RFC8526">&lt;get-data&gt;</xref> operation accepts
+              the private-candidate as a valid datastore.</t>
             <t>The use of &lt;get-data&gt; will create a private candidate configuration
               if one does not already exist for that NETCONF session.</t>
             <t>Sending an &lt;get-data&gt; request to private-candidate
@@ -1121,6 +1149,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9144.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5717.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8040.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8526.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8527.xml"/>
         <!-- The recommended and simplest way to include a well known reference -->
       </references>
