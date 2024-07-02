@@ -325,7 +325,7 @@ urn:ietf:params:netconf:capability:private-candidate:1.0
 | <candidate> |                 | <startup> |       | <private-candidate> |-+
 |  (ct, rw)   |<---+       +--->| (ct, rw)  |    +->|     (ct, rw)        | |-+
 +-------------+    |       |    +-----------+    |  +---------------------+ | |
-      |           |       |           |         |    +---------------------+  | 
+      |           |       |           |         |    +----------------------+ | 
       |         +-----------+<--------+         |      +----------------------+  
       +-------->| <running> |                   |            |  // multiple
                 | (ct, rw)  |-------------------+            |  // private-candidates
